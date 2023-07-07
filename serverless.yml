@@ -1,0 +1,42 @@
+service: bff-care-dev
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-tscpaths
+  - serverless-plugin-optimize
+  - serverless-offline
+
+provider:
+  name: aws
+  stage: api
+  runtime: nodejs14.x
+  deploymentBucket:
+    blockPublicAccess: true
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 'ssm:Describe*'
+            - 'ssm:Get*'
+            - 'ssm:List*'
+          Resource: '*'
+        - Effect: 'Allow'
+          Action:
+            - 'ec2:CreateNetworkInterface'
+            - 'ec2:DescribeNetworkInterfaces'
+            - 'ec2:DetachNetworkInterface'
+            - 'ec2:DeleteNetworkInterface'
+          Resource: '*'
+  environment:
+    NODE_ENV: 'serverless'
+
+functions:
+  main:
+    handler: apps/bff/src/lambda.handler
+    timeout: 30
+
+custom:
+  tscpaths:
+    buildPath: apps/bff/.build
+    tsconfigPath: apps/bff/tsconfig.json
