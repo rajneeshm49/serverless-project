@@ -12,7 +12,6 @@ export class AppService {
   constructor(private readonly http: HttpClient) {}
 
   callName(): Observable<any> {
-    const url = 'http://localhost:3333/api';
-    return this.http.get(`${environment.API_URL}`);
+    return this.http.get(`${environment.API_URL}/care/calculate`);
   }
 }

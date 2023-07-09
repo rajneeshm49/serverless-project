@@ -19,23 +19,23 @@ const binaryMimeTypes: string[] = [];
 let cachedServer: Server;
 
 async function bootstrapServer(): Promise<Server> {
-  if (!cachedServer) {
-    const expressApp = express();
-    const nestApp = await NestFactory.create(
-      AppModule,
-      new ExpressAdapter(expressApp),
-      {
-        cors: {
-          origin: '*',
-          methods: ['GET', 'POST', 'PUT', 'DELETE'],
-        },
-      }
-    );
-    nestApp.use(eventContext());
-    // nestApp.setGlobalPrefix(process.env['CONNECTOR_PREFIX'] || '');
-    await nestApp.init();
-    cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
-  }
+  // if (!cachedServer) {
+  const expressApp = express();
+  const nestApp = await NestFactory.create(
+    AppModule,
+    new ExpressAdapter(expressApp),
+    {
+      cors: {
+        origin: '*',
+        methods: ['GET', 'POST', 'PUT', 'DELETE'],
+      },
+    }
+  );
+  nestApp.use(eventContext());
+  // nestApp.setGlobalPrefix(process.env['CONNECTOR_PREFIX'] || '');
+  await nestApp.init();
+  cachedServer = createServer(expressApp, undefined, binaryMimeTypes);
+  // }
   return cachedServer;
 }
 
