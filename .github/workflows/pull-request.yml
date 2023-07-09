@@ -1,0 +1,32 @@
+name: Pull request workflow
+on: push
+env:
+  BUCKET_NAME: care-bff
+  AWS_REGION: us-east-1
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+
+      - name: Cache node modules
+        id: node-module-cache
+        uses: ./.github/actions/cache-deps
+        with:
+          caching: false
+
+      - name: Build
+        run:
+
+      - name: configure aws credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          role-to-assume: arn:aws:iam::972267709493:role/githubdemo
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Upload to s3
+        run: aws s3 sync ./dist/apps/fe s3://${{env.BUCKET_NAME}} --region ${{env.AWS_REGION}}
+
+      - name: print the data
+        run: echo "successfully uploaded"
