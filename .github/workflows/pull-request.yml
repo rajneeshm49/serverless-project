@@ -26,7 +26,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v2
         # https://www.udemy.com/course/github-actions-the-complete-guide/learn/lecture/34140726#overview
         with:
-          role-to-assume: arn:aws:iam::682755029646:oidc-provider/token.actions.githubusercontent.com
+          role-to-assume: arn:aws:iam::682755029646:role/serverless-deploy-role
           aws-region: ${{ env.AWS_REGION }}
 
       - name: Upload to s3
