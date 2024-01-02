@@ -7,7 +7,7 @@ import { Server } from 'http';
 
 import { AppModule } from './app/app.module';
 
-// Needed for lambda, lambda error if changed to "import * as express from 'express'"
+// Needed for lambda, lambda error if changed too "import * as express from 'express'"
 const express = require('express'); // eslint-disable-line @typescript-eslint/no-var-requires
 
 // NOTE: If you get ERR_CONTENT_DECODING_FAILED in your browser, this is likely
